@@ -8,4 +8,8 @@ import { ProductComponent } from '../../components/product/product.component';
   templateUrl: './list.component.html',
   styleUrl: './list.component.css',
 })
-export class ListComponent {}
+export class ListComponent {
+  onAddToCart(message: string) {
+    console.log('✅ Received from child component:', message);
+  }
+}

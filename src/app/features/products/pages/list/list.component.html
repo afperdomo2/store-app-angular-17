@@ -5,20 +5,18 @@
     [title]="'Product 1'"
     [img]="'https://picsum.photos/640/640?r=1'"
     [price]="19.99"
+    (addToCart)="onAddToCart($event)"
   />
   <app-product
     [title]="'Product 2'"
     [img]="'https://picsum.photos/640/640?r=2'"
     [price]="29.99"
+    (addToCart)="onAddToCart($event)"
   />
   <app-product
     [title]="'Product 3'"
     [img]="'https://picsum.photos/640/640?r=3'"
     [price]="39.99"
-  />
-  <app-product
-    [title]="'Product 4'"
-    [img]="'https://picsum.photos/640/640?r=4'"
-    [price]="49.99"
+    (addToCart)="onAddToCart($event)"
   />
 </div>

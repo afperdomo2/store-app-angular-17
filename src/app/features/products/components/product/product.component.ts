@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-product',
@@ -13,4 +13,11 @@ export class ProductComponent {
   @Input({ required: true }) img: string = '';
   @Input({ required: true }) title: string = '';
   @Input({ required: true }) price: number = 0;
+
+  @Output() addToCart = new EventEmitter<string>();
+
+  addCartHandler() {
+    console.log('Adding to cart:', this.title);
+    this.addToCart.emit(`Este es un mensaje desde el hijo: ${this.title}`);
+  }
 }

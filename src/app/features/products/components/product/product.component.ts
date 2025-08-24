@@ -13,6 +13,7 @@ export class ProductComponent {
   @Input({ required: true }) img: string = '';
   @Input({ required: true }) title: string = '';
   @Input({ required: true }) price: number = 0;
+  @Input({ required: true }) rating: number = 0;
 
   @Output() addToCart = new EventEmitter<string>();
 

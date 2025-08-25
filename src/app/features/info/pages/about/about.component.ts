@@ -1,15 +1,16 @@
 import { Component, signal } from '@angular/core';
 import { CounterComponent } from '../../../../shared/components/counter/counter.component';
+import { WaveAudioComponent } from '../../components/wave-audio/wave-audio.component';
 
 @Component({
   selector: 'app-about',
   standalone: true,
-  imports: [CounterComponent],
+  imports: [CounterComponent, WaveAudioComponent],
   templateUrl: './about.component.html',
   styleUrl: './about.component.css',
 })
 export class AboutComponent {
-  duration = signal(3);
+  duration = signal(0);
   message = signal('Counter for About Component');
 
   changeDuration(event: Event) {

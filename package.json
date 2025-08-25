@@ -23,6 +23,7 @@
     "rxjs": "~7.8.0",
     "tailwindcss": "^4.1.12",
     "tslib": "^2.3.0",
+    "wavesurfer.js": "^7.10.1",
     "zone.js": "~0.14.3"
   },
   "devDependencies": {

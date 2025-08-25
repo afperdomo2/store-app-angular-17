@@ -9,6 +9,9 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The appli
 ```sh
 # Crear el proyecto
 ng new store-app-angular-17 --standalone --skip-tests
+
+# Crear un componente
+ng g c features/products/components/product
 ```
 
 ## Code scaffolding

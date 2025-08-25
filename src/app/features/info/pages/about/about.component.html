@@ -1,0 +1,24 @@
+<h1 class="text-2xl font-bold text-center mb-4">About</h1>
+
+<p class="flex flex-col gap-4 items-center">
+  <input
+    type="text"
+    placeholder="Message"
+    [value]="message()"
+    (input)="changeMessage($event)"
+    class="w-full max-w-md px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+  />
+  <input
+    type="number"
+    placeholder="Duration"
+    [value]="duration()"
+    (input)="changeDuration($event)"
+    class="w-full max-w-md px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+  />
+</p>
+
+<br />
+
+@if (duration() > 0 ) {
+<app-counter [duration]="duration()" [message]="message()" />
+}

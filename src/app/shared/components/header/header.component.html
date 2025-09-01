@@ -63,34 +63,10 @@
           </svg>
         </button>
 
-        <!-- Favoritos -->
-        <button
-          class="p-2 text-gray-400 hover:text-gray-500 dark:hover:text-gray-300 relative"
-          title="Ver favoritos"
-          aria-label="Ver favoritos"
-        >
-          <svg
-            class="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-            ></path>
-          </svg>
-          <span
-            class="absolute -top-1 -right-1 bg-blue-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center"
-            >3</span
-          >
-        </button>
-
         <!-- Carrito de compras -->
         <button
-          class="p-2 text-gray-400 hover:text-gray-500 dark:hover:text-gray-300 relative"
+          (click)="toggleCartSidebar()"
+          class="p-2 text-gray-400 hover:text-gray-500 dark:hover:text-gray-300 relative cursor-pointer transition-colors duration-200"
           title="Ver carrito de compras"
           aria-label="Ver carrito de compras"
         >
@@ -199,3 +175,224 @@
     </div>
   </div>
 </header>
+
+<!-- Sidebar del carrito -->
+<div class="fixed inset-0 z-50" [class.hidden]="!isCartSidebarOpen()">
+  <!-- Overlay mejorado -->
+  <div
+    class="fixed inset-0 bg-gray-900/20 backdrop-blur-sm transition-all duration-500 ease-out"
+    [class.opacity-0]="!isCartSidebarOpen()"
+    [class.opacity-100]="isCartSidebarOpen()"
+    (click)="closeCartSidebar()"
+  ></div>
+
+  <!-- Sidebar mejorado -->
+  <div
+    class="fixed right-0 top-0 h-full w-full max-w-md bg-white/95 dark:bg-gray-800/95 backdrop-blur-md shadow-2xl transform transition-all duration-500 ease-out border-l border-gray-200/50 dark:border-gray-700/50"
+    [class.translate-x-full]="!isCartSidebarOpen()"
+    [class.translate-x-0]="isCartSidebarOpen()"
+  >
+    <!-- Header del sidebar -->
+    <div
+      class="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700"
+    >
+      <h2 class="text-lg font-semibold text-gray-900 dark:text-white">
+        Carrito de Compras
+      </h2>
+      <button
+        (click)="closeCartSidebar()"
+        class="p-2 text-gray-400 hover:text-gray-500 dark:hover:text-gray-300 cursor-pointer"
+        title="Cerrar carrito"
+        aria-label="Cerrar carrito"
+      >
+        <svg
+          class="w-6 h-6"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M6 18L18 6M6 6l12 12"
+          ></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Contenido del carrito -->
+    <div class="flex-1 overflow-y-auto p-4">
+      <!-- Productos en el carrito -->
+      <div class="space-y-4">
+        <!-- Producto ejemplo 1 -->
+        <div
+          class="flex items-center space-x-3 bg-gray-50 dark:bg-gray-700 p-3 rounded-lg"
+        >
+          <div
+            class="w-15 h-15 bg-gray-300 dark:bg-gray-600 rounded flex items-center justify-center"
+          >
+            <svg
+              class="w-8 h-8 text-gray-400"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+              ></path>
+            </svg>
+          </div>
+          <div class="flex-1">
+            <h3 class="text-sm font-medium text-gray-900 dark:text-white">
+              Producto de ejemplo
+            </h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400">$99.99</p>
+            <div class="flex items-center mt-1">
+              <button
+                class="w-6 h-6 flex items-center justify-center bg-gray-200 dark:bg-gray-600 rounded text-gray-600 dark:text-gray-300 cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-500"
+              >
+                -
+              </button>
+              <span class="mx-2 text-sm text-gray-900 dark:text-white">1</span>
+              <button
+                class="w-6 h-6 flex items-center justify-center bg-gray-200 dark:bg-gray-600 rounded text-gray-600 dark:text-gray-300 cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-500"
+              >
+                +
+              </button>
+            </div>
+          </div>
+          <button
+            class="text-red-500 hover:text-red-700 cursor-pointer"
+            title="Eliminar producto"
+            aria-label="Eliminar producto del carrito"
+          >
+            <svg
+              class="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+              ></path>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Producto ejemplo 2 -->
+        <div
+          class="flex items-center space-x-3 bg-gray-50 dark:bg-gray-700 p-3 rounded-lg"
+        >
+          <div
+            class="w-15 h-15 bg-gray-300 dark:bg-gray-600 rounded flex items-center justify-center"
+          >
+            <svg
+              class="w-8 h-8 text-gray-400"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+              ></path>
+            </svg>
+          </div>
+          <div class="flex-1">
+            <h3 class="text-sm font-medium text-gray-900 dark:text-white">
+              Otro producto
+            </h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400">$149.99</p>
+            <div class="flex items-center mt-1">
+              <button
+                class="w-6 h-6 flex items-center justify-center bg-gray-200 dark:bg-gray-600 rounded text-gray-600 dark:text-gray-300 cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-500"
+              >
+                -
+              </button>
+              <span class="mx-2 text-sm text-gray-900 dark:text-white">2</span>
+              <button
+                class="w-6 h-6 flex items-center justify-center bg-gray-200 dark:bg-gray-600 rounded text-gray-600 dark:text-gray-300 cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-500"
+              >
+                +
+              </button>
+            </div>
+          </div>
+          <button
+            class="text-red-500 hover:text-red-700 cursor-pointer"
+            title="Eliminar producto"
+            aria-label="Eliminar producto del carrito"
+          >
+            <svg
+              class="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+              ></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mensaje de carrito vacío (para cuando no hay productos) -->
+      <!-- <div class="text-center py-8">
+        <svg class="w-16 h-16 mx-auto text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m6-5v6a2 2 0 01-2 2H9a2 2 0 01-2-2v-6m8 0V9a2 2 0 00-2-2H9a2 2 0 00-2 2v4.01"></path>
+        </svg>
+        <p class="text-gray-500 dark:text-gray-400">Tu carrito está vacío</p>
+      </div> -->
+    </div>
+
+    <!-- Footer del carrito -->
+    <div class="border-t border-gray-200 dark:border-gray-700 p-4 space-y-4">
+      <!-- Resumen -->
+      <div class="space-y-2">
+        <div class="flex justify-between text-sm">
+          <span class="text-gray-600 dark:text-gray-400">Subtotal:</span>
+          <span class="text-gray-900 dark:text-white">$399.97</span>
+        </div>
+        <div class="flex justify-between text-sm">
+          <span class="text-gray-600 dark:text-gray-400">Envío:</span>
+          <span class="text-gray-900 dark:text-white">$9.99</span>
+        </div>
+        <div class="flex justify-between text-sm">
+          <span class="text-gray-600 dark:text-gray-400">Impuestos:</span>
+          <span class="text-gray-900 dark:text-white">$32.00</span>
+        </div>
+        <hr class="border-gray-200 dark:border-gray-600" />
+        <div class="flex justify-between font-semibold">
+          <span class="text-gray-900 dark:text-white">Total:</span>
+          <span class="text-gray-900 dark:text-white">$441.96</span>
+        </div>
+      </div>
+
+      <!-- Botones de acción -->
+      <div class="space-y-2">
+        <button
+          class="w-full bg-blue-700 hover:bg-blue-800 text-white font-medium py-3 px-4 rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 cursor-pointer"
+        >
+          Proceder al Checkout
+        </button>
+        <button
+          class="w-full bg-gray-200 hover:bg-gray-300 text-gray-900 font-medium py-2 px-4 rounded-lg dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-white cursor-pointer"
+        >
+          Ver Carrito Completo
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

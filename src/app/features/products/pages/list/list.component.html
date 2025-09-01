@@ -1,7 +1,9 @@
-<h1>Product List</h1>
+<app-header />
 
-<div class="grid grid-cols-3 gap-4">
-  @for (product of productList(); track $index) {
-  <app-product [product]="product" (addToCart)="onAddToCart($event)" />
-  }
+<div class="container mx-auto px-4 mt-6">
+  <div class="grid grid-cols-3 gap-4">
+    @for (product of productList(); track $index) {
+    <app-product [product]="product" (addToCart)="onAddToCart($event)" />
+    }
+  </div>
 </div>

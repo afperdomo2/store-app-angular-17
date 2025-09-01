@@ -1,32 +1,7 @@
 <h1>Product List</h1>
 
 <div class="grid grid-cols-3 gap-4">
-  <app-product
-    [title]="'Product 1'"
-    [img]="'https://picsum.photos/640/640?r=1'"
-    [price]="19.99"
-    [rating]="4.5"
-    (addToCart)="onAddToCart($event)"
-  />
-  <app-product
-    [title]="'Product 2'"
-    [img]="'https://picsum.photos/640/640?r=2'"
-    [price]="29.99"
-    [rating]="4.0"
-    (addToCart)="onAddToCart($event)"
-  />
-  <app-product
-    [title]="'Product 2'"
-    [img]="'https://picsum.photos/640/640?r=3'"
-    [price]="29.99"
-    [rating]="4.0"
-    (addToCart)="onAddToCart($event)"
-  />
-  <app-product
-    [title]="'Product 2'"
-    [img]="'https://picsum.photos/640/640?r=4'"
-    [price]="29.99"
-    [rating]="3.0"
-    (addToCart)="onAddToCart($event)"
-  />
+  @for (product of productList(); track $index) {
+  <app-product [product]="product" (addToCart)="onAddToCart($event)" />
+  }
 </div>

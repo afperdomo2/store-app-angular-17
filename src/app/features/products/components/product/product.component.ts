@@ -13,12 +13,9 @@ export class ProductComponent {
 
   @Input({ required: true }) product!: Product;
 
-  @Output() addToCart = new EventEmitter<string>();
+  @Output() addToCart = new EventEmitter<Product>();
 
   addCartHandler() {
-    console.log('Adding to cart:', this.product.title);
-    this.addToCart.emit(
-      `Este es un mensaje desde el hijo: ${this.product.title}`
-    );
+    this.addToCart.emit(this.product);
   }
 }

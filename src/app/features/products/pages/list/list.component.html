@@ -1,4 +1,4 @@
-<app-header />
+<app-header [cartItems]="cartItems()" />
 
 <div class="container mx-auto px-4 mt-6">
   <div class="grid grid-cols-3 gap-4">
@@ -6,4 +6,6 @@
     <app-product [product]="product" (addToCart)="onAddToCart($event)" />
     }
   </div>
+  <!-- <pre>{{ cartItems().length }}</pre>
+  <pre>{{ cartItems() | json }}</pre> -->
 </div>

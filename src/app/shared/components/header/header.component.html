@@ -13,30 +13,16 @@
 
         <!-- Menú de navegación -->
         <nav class="hidden md:flex items-center space-x-6">
+          @for (menu of menuLinks; track $index) {
           <a
-            routerLink="/"
+            [routerLink]="menu.path"
             class="text-gray-700 hover:text-blue-700 dark:text-gray-300 dark:hover:text-blue-400 font-medium transition-colors duration-200 cursor-pointer"
-            title="Inicio"
-            aria-label="Ir a la página de inicio"
+            [attr.title]="menu.label"
+            [attr.aria-label]="'Ir a la página de ' + menu.label"
           >
-            Home
+            {{ menu.label }}
           </a>
-          <a
-            routerLink="/servicios"
-            class="text-gray-700 hover:text-blue-700 dark:text-gray-300 dark:hover:text-blue-400 font-medium transition-colors duration-200 cursor-pointer"
-            title="Servicios"
-            aria-label="Ir a la página de servicios"
-          >
-            Servicios
-          </a>
-          <a
-            routerLink="/about"
-            class="text-gray-700 hover:text-blue-700 dark:text-gray-300 dark:hover:text-blue-400 font-medium transition-colors duration-200 cursor-pointer"
-            title="Acerca de"
-            aria-label="Ir a la página acerca de"
-          >
-            About
-          </a>
+          }
         </nav>
       </div>
 
@@ -203,27 +189,15 @@
       <div
         class="px-2 pt-2 pb-3 space-y-1 border-t border-gray-200 dark:border-gray-700"
       >
+        @for (menu of menuLinks; track $index) {
         <a
-          routerLink="/"
+          [routerLink]="menu.path"
           class="block px-3 py-2 text-gray-700 hover:text-blue-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:text-blue-400 dark:hover:bg-gray-700 font-medium rounded-md transition-colors duration-200 cursor-pointer"
           (click)="closeMobileMenu()"
         >
-          Home
+          {{ menu.label }}
         </a>
-        <a
-          routerLink="/servicios"
-          class="block px-3 py-2 text-gray-700 hover:text-blue-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:text-blue-400 dark:hover:bg-gray-700 font-medium rounded-md transition-colors duration-200 cursor-pointer"
-          (click)="closeMobileMenu()"
-        >
-          Servicios
-        </a>
-        <a
-          routerLink="/about"
-          class="block px-3 py-2 text-gray-700 hover:text-blue-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:text-blue-400 dark:hover:bg-gray-700 font-medium rounded-md transition-colors duration-200 cursor-pointer"
-          (click)="closeMobileMenu()"
-        >
-          About
-        </a>
+        }
       </div>
     </div>
   </div>

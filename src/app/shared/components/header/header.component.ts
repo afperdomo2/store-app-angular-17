@@ -14,6 +14,12 @@ import { CartService } from '@shared/services/cart.service';
 export class HeaderComponent {
   private cartService = inject(CartService);
 
+  readonly menuLinks = [
+    { label: 'Home', path: '/' },
+    { label: 'Services', path: '/services' },
+    { label: 'About', path: '/about' },
+  ];
+
   cartProducts = this.cartService.cartProducts;
   cartTotalAmount = this.cartService.cartTotal;
 

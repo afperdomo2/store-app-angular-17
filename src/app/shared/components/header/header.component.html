@@ -264,7 +264,7 @@
               {{ product.title }}
             </h3>
             <p class="text-sm text-gray-500 dark:text-gray-400">
-              ${{ product.price }}
+              {{ product.price | currency : "$" : "symbol" : "1.2-2" }}
             </p>
             <div class="flex items-center mt-1">
               <button
@@ -316,7 +316,7 @@
         <div class="flex justify-between font-semibold">
           <span class="text-gray-900 dark:text-white">Total:</span>
           <span class="text-gray-900 dark:text-white">
-            $ {{ cartTotalAmount() }}
+            {{ cartTotalAmount() | currency : "$" : "symbol" : "1.2-2" }}
           </span>
         </div>
       </div>

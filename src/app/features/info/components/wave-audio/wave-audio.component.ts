@@ -1,5 +1,6 @@
-import { Component, ElementRef, Input, signal, ViewChild } from '@angular/core';
 import WaveSurfer from 'wavesurfer.js';
+
+import { Component, ElementRef, Input, signal, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-wave-audio',

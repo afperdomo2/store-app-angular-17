@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
 
-import { Product } from '../../../../core/models/product.model';
-import { HeaderComponent } from '../../../../shared/components/header/header.component';
-import { ProductService } from '../../../../shared/services/api/escuelajs/product.service';
-import { CartService } from '../../../../shared/services/cart.service';
-import { ProductComponent } from '../../components/product/product.component';
+import { Product } from '@core/models/product.model';
+import { ProductComponent } from '@features/products/components/product/product.component';
+import { HeaderComponent } from '@shared/components/header/header.component';
+import { ProductService } from '@shared/services/api/escuelajs/product.service';
+import { CartService } from '@shared/services/cart.service';
 
 @Component({
   selector: 'app-list',

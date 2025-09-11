@@ -1,9 +1,20 @@
 export interface Product {
   id: number;
   title: string;
-  description: string;
+  slug: string;
   price: number;
-  rating: number;
-  imageUrl: string;
-  createdAt: Date;
+  description: string;
+  category: Category;
+  images: string[];
+  creationAt: Date;
+  updatedAt: Date;
+}
+
+export interface Category {
+  id: number;
+  name: string;
+  slug: string;
+  image: string;
+  creationAt: Date;
+  updatedAt: Date;
 }

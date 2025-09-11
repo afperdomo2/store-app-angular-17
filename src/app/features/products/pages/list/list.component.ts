@@ -1,9 +1,9 @@
+import { CommonModule } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
 
-import { CommonModule } from '@angular/common';
 import { Product } from '../../../../core/models/product.model';
-import { INIT_PRODUCTS } from '../../../../data/init.data';
 import { HeaderComponent } from '../../../../shared/components/header/header.component';
+import { ProductService } from '../../../../shared/services/api/escuelajs/product.service';
 import { CartService } from '../../../../shared/services/cart.service';
 import { ProductComponent } from '../../components/product/product.component';
 
@@ -16,11 +16,17 @@ import { ProductComponent } from '../../components/product/product.component';
 })
 export class ListComponent {
   private cartService = inject(CartService);
+  private productService = inject(ProductService);
 
   productList = signal<Product[]>([]);
 
-  constructor() {
-    this.productList.set(INIT_PRODUCTS);
+  constructor() {}
+
+  // Se ejecuta al inicializar el componente, una sola vez
+  ngOnInit() {
+    this.productService.getProducts().subscribe((products) => {
+      this.productList.set(products);
+    });
   }
 
   onAddToCart(product: Product) {

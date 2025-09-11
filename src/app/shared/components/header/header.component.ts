@@ -1,12 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 import { CartService } from '@shared/services/cart.service';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
 })
@@ -17,6 +18,7 @@ export class HeaderComponent {
   cartTotalAmount = this.cartService.cartTotal;
 
   isCartSidebarOpen = signal(false);
+  isMobileMenuOpen = signal(false);
 
   constructor() {}
 
@@ -26,6 +28,14 @@ export class HeaderComponent {
 
   closeCartSidebar() {
     this.isCartSidebarOpen.set(false);
+  }
+
+  toggleMobileMenu() {
+    this.isMobileMenuOpen.update((value) => !value);
+  }
+
+  closeMobileMenu() {
+    this.isMobileMenuOpen.set(false);
   }
 
   removeFromCart(productId: number) {

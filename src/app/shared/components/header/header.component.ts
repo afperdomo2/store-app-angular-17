@@ -1,11 +1,5 @@
-import {
-  Component,
-  Input,
-  signal,
-  SimpleChange,
-  SimpleChanges,
-} from '@angular/core';
-import { Product } from '../../../core/models/product.model';
+import { Component, inject, signal } from '@angular/core';
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-header',
@@ -15,22 +9,14 @@ import { Product } from '../../../core/models/product.model';
   styleUrl: './header.component.css',
 })
 export class HeaderComponent {
-  @Input({ required: true }) cartItems: Product[] = [];
+  private cartService = inject(CartService);
+
+  cartProducts = this.cartService.cartProducts;
+  cartTotalAmount = this.cartService.cartTotal;
 
   isCartSidebarOpen = signal(false);
 
-  cartTotalAmount = signal(0);
-
   constructor() {}
-
-  ngOnChanges(changes: SimpleChanges) {
-    const cartItemsChange: SimpleChange = changes['cartItems'];
-    if (cartItemsChange) {
-      this.cartTotalAmount.set(
-        this.cartItems.reduce((total, item) => total + item.price, 0)
-      );
-    }
-  }
 
   toggleCartSidebar() {
     this.isCartSidebarOpen.update((value) => !value);
@@ -38,5 +24,9 @@ export class HeaderComponent {
 
   closeCartSidebar() {
     this.isCartSidebarOpen.set(false);
+  }
+
+  removeFromCart(productId: number) {
+    this.cartService.removeFromCart(productId);
   }
 }

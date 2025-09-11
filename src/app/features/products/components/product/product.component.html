@@ -16,8 +16,8 @@
         {{ product.title }}
       </h5>
     </a>
-    <p class="text-sm text-gray-500 dark:text-gray-400 mb-1">
-      Updated on: {{ product.updatedAt | date : "longDate" }}
+    <p class="text-sm text-gray-500 dark:text-gray-400 mb-0.5">
+      Created on: {{ product.creationAt | timeAgo }}
     </p>
     <div class="flex items-center justify-between">
       <span class="text-3xl font-bold text-gray-900 dark:text-white">

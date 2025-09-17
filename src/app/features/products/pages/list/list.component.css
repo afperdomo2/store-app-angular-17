@@ -1,0 +1,23 @@
+/* Ocultar scrollbar pero mantener funcionalidad */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;  /* Safari and Chrome */
+}
+
+/* Smooth scroll behavior */
+.scrollbar-hide {
+  scroll-behavior: smooth;
+}
+
+/* Estilos adicionales para categorías */
+.category-scroll-container {
+  scroll-snap-type: x mandatory;
+}
+
+.category-item {
+  scroll-snap-align: start;
+}

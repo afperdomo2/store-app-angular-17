@@ -1,3 +1,5 @@
+import { Category } from './category.model';
+
 export interface Product {
   set(product: Product): void;
   id: number;
@@ -7,15 +9,6 @@ export interface Product {
   description: string;
   category: Category;
   images: string[];
-  creationAt: Date;
-  updatedAt: Date;
-}
-
-export interface Category {
-  id: number;
-  name: string;
-  slug: string;
-  image: string;
   creationAt: Date;
   updatedAt: Date;
 }

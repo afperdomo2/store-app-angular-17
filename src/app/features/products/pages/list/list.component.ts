@@ -20,7 +20,7 @@ import { CartService } from '@shared/services/cart.service';
   templateUrl: './list.component.html',
   styleUrl: './list.component.css',
 })
-export class ListComponent implements OnInit {
+export default class ListComponent implements OnInit {
   private cartService = inject(CartService);
   private productService = inject(ProductService);
   private categoryService = inject(CategoryService);

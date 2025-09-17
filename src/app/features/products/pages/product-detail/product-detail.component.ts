@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, Input, OnInit, signal } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { Product } from '@core/models/product.model';
 import { ProductService } from '@shared/services/api/escuelajs/product.service';
@@ -13,8 +12,7 @@ import { CartService } from '@shared/services/cart.service';
   templateUrl: './product-detail.component.html',
   styleUrl: './product-detail.component.css',
 })
-export class ProductDetailComponent implements OnInit {
-  private router = inject(Router);
+export default class ProductDetailComponent implements OnInit {
   private cartService = inject(CartService);
   private productService = inject(ProductService);
 

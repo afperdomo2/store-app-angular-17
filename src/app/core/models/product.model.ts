@@ -1,4 +1,5 @@
 export interface Product {
+  set(product: Product): void;
   id: number;
   title: string;
   slug: string;

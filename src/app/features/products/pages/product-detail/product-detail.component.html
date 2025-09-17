@@ -1,0 +1,268 @@
+<div
+  class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8"
+  *ngIf="product() as product"
+>
+  <!-- Breadcrumb -->
+  <nav class="flex mb-8" aria-label="Breadcrumb">
+    <ol class="inline-flex items-center space-x-1 md:space-x-3">
+      <li class="inline-flex items-center">
+        <a
+          (click)="goBack()"
+          class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white cursor-pointer"
+        >
+          <svg class="w-3 h-3 mr-2.5" fill="currentColor" viewBox="0 0 20 20">
+            <path
+              d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"
+            ></path>
+          </svg>
+          Inicio
+        </a>
+      </li>
+      <li>
+        <div class="flex items-center">
+          <svg
+            class="w-3 h-3 text-gray-400 mx-1"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+          <span
+            class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400"
+          >
+            {{ product.category.name }}
+          </span>
+        </div>
+      </li>
+      <li aria-current="page">
+        <div class="flex items-center">
+          <svg
+            class="w-3 h-3 text-gray-400 mx-1"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+          <span
+            class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400 truncate"
+          >
+            {{ product.title }}
+          </span>
+        </div>
+      </li>
+    </ol>
+  </nav>
+
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+    <!-- Galería de imágenes -->
+    <div class="space-y-4">
+      <!-- Imagen principal -->
+      <div
+        class="aspect-square bg-gray-100 dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg"
+      >
+        <img
+          [src]="product.images[selectedImageIndex()]"
+          [title]="product.title"
+          alt="{{ product.title }}"
+          class="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+        />
+      </div>
+
+      <!-- Miniaturas -->
+      <div class="grid grid-cols-4 gap-3" *ngIf="product.images.length > 1">
+        <button
+          class="aspect-square bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden border-2 transition-all duration-200 hover:shadow-md"
+          type="button"
+          *ngFor="let image of product.images; let i = index"
+          (click)="selectImage(i)"
+          [class.border-blue-600]="selectedImageIndex() === i"
+          [class.border-gray-200]="selectedImageIndex() !== i"
+          [class.dark:border-blue-400]="selectedImageIndex() === i"
+          [class.dark:border-gray-700]="selectedImageIndex() !== i"
+          [class.ring-2]="selectedImageIndex() === i"
+          [class.ring-blue-200]="selectedImageIndex() === i"
+          [class.dark:ring-blue-800]="selectedImageIndex() === i"
+          [title]="'Ver imagen ' + (i + 1) + ' de ' + product.title"
+          [attr.aria-label]="'Ver imagen ' + (i + 1) + ' de ' + product.title"
+        >
+          <img
+            class="w-full h-full object-cover"
+            [src]="image"
+            [title]="product.title + ' imagen ' + (i + 1)"
+            alt="{{ product.title + ' imagen ' + (i + 1) }}"
+          />
+        </button>
+      </div>
+    </div>
+
+    <!-- Información del producto -->
+    <div class="space-y-6">
+      <!-- Categoría y acciones superiores -->
+      <div class="flex items-center justify-between">
+        <span
+          class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+        >
+          {{ product.category.name }}
+        </span>
+      </div>
+
+      <!-- Título del producto -->
+      <h1
+        class="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white leading-tight"
+      >
+        {{ product.title }}
+      </h1>
+
+      <!-- Precio -->
+      <div class="flex items-baseline space-x-3">
+        <span
+          class="text-4xl lg:text-5xl font-bold text-blue-600 dark:text-blue-400"
+        >
+          {{ product.price | currency : "$" : "symbol" : "1.2-2" }}
+        </span>
+      </div>
+
+      <!-- Descripción -->
+      <div class="prose prose-gray dark:prose-invert max-w-none">
+        <p class="text-gray-600 dark:text-gray-300 leading-relaxed text-lg">
+          {{ product.description }}
+        </p>
+      </div>
+
+      <!-- Controles de cantidad -->
+      <div class="space-y-4">
+        <div class="flex items-center space-x-4">
+          <span class="text-gray-700 dark:text-gray-300 font-medium"
+            >Cantidad:</span
+          >
+          <div
+            class="flex items-center border-2 border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800"
+          >
+            <button
+              (click)="decreaseQuantity()"
+              [disabled]="quantity() <= 1"
+              class="px-4 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors rounded-l-lg"
+              title="Disminuir cantidad"
+            >
+              <svg
+                class="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M20 12H4"
+                ></path>
+              </svg>
+            </button>
+            <span
+              class="px-6 py-2 text-gray-900 dark:text-white font-medium min-w-[4rem] text-center border-x border-gray-300 dark:border-gray-600"
+            >
+              {{ quantity() }}
+            </span>
+            <button
+              (click)="increaseQuantity()"
+              [disabled]="quantity() >= maxQuantity"
+              class="px-4 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors rounded-r-lg"
+              title="Aumentar cantidad"
+            >
+              <svg
+                class="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                ></path>
+              </svg>
+            </button>
+          </div>
+          <span class="text-sm text-gray-500 dark:text-gray-400">
+            (máximo {{ maxQuantity }})
+          </span>
+        </div>
+      </div>
+
+      <!-- Botones de acción -->
+      <div class="space-y-3">
+        <!-- Botón agregar al carrito -->
+        <button
+          class="w-full bg-blue-700 hover:bg-blue-800 disabled:bg-blue-400 text-white font-medium py-4 px-6 rounded-xl transition-all duration-200 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 flex items-center justify-center space-x-2 transform hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
+          type="button"
+          (click)="addToCart()"
+          [disabled]="isAddingToCart()"
+        >
+          <svg
+            class="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            *ngIf="!isAddingToCart()"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m6-5v6a2 2 0 01-2 2H9a2 2 0 01-2-2v-6m8 0V9a2 2 0 00-2-2H9a2 2 0 00-2 2v4.01"
+            ></path>
+          </svg>
+          <div
+            class="animate-spin w-5 h-5 border-2 border-white border-t-transparent rounded-full"
+            *ngIf="isAddingToCart()"
+          ></div>
+          <span>{{
+            isAddingToCart() ? "Agregando..." : "Agregar al carrito"
+          }}</span>
+        </button>
+      </div>
+
+      <!-- Información adicional -->
+      <div class="bg-gray-50 dark:bg-gray-800 rounded-xl p-6 space-y-4">
+        <h3 class="font-semibold text-gray-900 dark:text-white">
+          📋 Información del producto
+        </h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+          <div class="flex justify-between">
+            <span class="text-gray-500 dark:text-gray-400">ID:</span>
+            <span class="text-gray-900 dark:text-white font-medium">
+              #{{ product.id }}
+            </span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-gray-500 dark:text-gray-400">Categoría:</span>
+            <span class="text-gray-900 dark:text-white font-medium">
+              {{ product.category.name }}
+            </span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-gray-500 dark:text-gray-400">Creado:</span>
+            <span class="text-gray-900 dark:text-white font-medium">
+              {{ product.creationAt | date : "mediumDate" }}
+            </span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-gray-500 dark:text-gray-400">Actualizado:</span>
+            <span class="text-gray-900 dark:text-white font-medium">
+              {{ product.updatedAt | date : "mediumDate" }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

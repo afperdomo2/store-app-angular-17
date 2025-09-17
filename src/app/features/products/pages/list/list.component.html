@@ -13,42 +13,10 @@
         class="flex space-x-4 overflow-x-auto pb-4 pt-1.5 pl-1.5 scrollbar-hide"
       >
         @for (category of categoryList(); track category.id) {
-        <div class="flex-shrink-0 group cursor-pointer">
-          <div
-            class="w-20 h-20 bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-700 dark:to-gray-600 rounded-full flex items-center justify-center mb-2 group-hover:scale-110 transition-transform duration-200 shadow-md hover:shadow-md"
-          >
-            <img
-              class="w-12 h-12 object-cover rounded-full group-hover:scale-105 transition-transform duration-200"
-              [src]="category.image"
-              [title]="category.name"
-              alt="{{ category.name }}"
-              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"
-            />
-            <!-- Fallback icon -->
-            <div
-              class="hidden w-8 h-8 bg-blue-500 dark:bg-blue-600 rounded-full items-center justify-center"
-            >
-              <svg
-                class="w-4 h-4 text-white"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
-                ></path>
-              </svg>
-            </div>
-          </div>
-          <p
-            class="text-xs text-center text-gray-700 dark:text-gray-300 font-medium truncate w-20 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors"
-          >
-            {{ category.name }}
-          </p>
-        </div>
+        <app-category-button
+          [category]="category"
+          [isSelected]="isCategorySelected(category)"
+        />
         }
       </div>
 
@@ -85,17 +53,61 @@
     }
   </section>
 
+  <!-- Filtros Activos -->
+  @if (category) {
+  <section class="mb-6">
+    <div
+      class="flex items-center justify-between p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800"
+    >
+      <div class="flex items-center space-x-3">
+        <svg
+          class="w-5 h-5 text-blue-600 dark:text-blue-400"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.414A1 1 0 013 6.707V4z"
+          ></path>
+        </svg>
+        <span class="text-sm font-medium text-blue-900 dark:text-blue-100">
+          Filtrando por:
+        </span>
+        <span
+          class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800 dark:bg-blue-800 dark:text-blue-200"
+        >
+          {{ category }}
+        </span>
+      </div>
+      <button
+        (click)="clearCategoryFilter()"
+        class="inline-flex items-center space-x-1 text-sm text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 font-medium transition-colors cursor-pointer"
+        title="Limpiar filtros"
+      >
+        <svg
+          class="w-4 h-4"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M6 18L18 6M6 6l12 12"
+          ></path>
+        </svg>
+        <span>Limpiar filtros</span>
+      </button>
+    </div>
+  </section>
+  }
+
   <!-- Sección de Productos -->
   <section>
-    <div class="flex items-center justify-between mb-6">
-      <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
-        Productos Destacados
-      </h2>
-      <span class="text-sm text-gray-500 dark:text-gray-400">
-        {{ productList().length }} productos
-      </span>
-    </div>
-
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       @for (product of productList(); track product.id) {
       <app-product [product]="product" (addToCart)="onAddToCart($event)" />
@@ -120,12 +132,18 @@
       </svg>
 
       <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-2">
-        No hay productos disponibles
+        @if (category) { No hay productos en esta categoría } @else { No hay
+        productos disponibles }
       </h3>
 
-      <p class="text-gray-500 dark:text-gray-400">
-        Los productos se cargarán pronto.
-      </p>
+      @if (category) {
+      <button
+        (click)="clearCategoryFilter()"
+        class="inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors cursor-pointer"
+      >
+        Ver todos los productos
+      </button>
+      }
     </div>
     }
   </section>

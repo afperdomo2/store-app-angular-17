@@ -3,6 +3,10 @@ import { inject, Injectable } from '@angular/core';
 
 import { Product } from '@core/models/product.model';
 
+export interface ProductFilterOptions {
+  categorySlug?: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -12,8 +16,12 @@ export class ProductService {
 
   constructor() {}
 
-  getProducts() {
-    return this.http.get<Product[]>(`${this.apiUrl}/products`);
+  getProducts(filter?: ProductFilterOptions) {
+    const url = new URL(`${this.apiUrl}/products`);
+    if (filter?.categorySlug) {
+      url.searchParams.append('categorySlug', filter.categorySlug);
+    }
+    return this.http.get<Product[]>(url.toString());
   }
 
   getProductById(id: string | number) {

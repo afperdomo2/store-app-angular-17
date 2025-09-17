@@ -1,0 +1,46 @@
+<div
+  class="flex-shrink-0 group category-button"
+  [class.category-selected]="isSelected"
+>
+  <a class="block" routerLink="/" [queryParams]="{ category: category.slug }">
+    <div
+      class="w-20 h-20 rounded-full flex items-center justify-center mb-2 group-hover:scale-110 transition-all duration-200 shadow-md hover:shadow-lg category-circle bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-700 dark:to-gray-600"
+    >
+      <img
+        class="w-12 h-12 object-cover rounded-full group-hover:scale-105 transition-transform duration-200"
+        [src]="category.image"
+        [title]="category.name"
+        alt="Category Image"
+        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"
+      />
+      <!-- Fallback icon -->
+      <div
+        class="hidden w-8 h-8 bg-blue-500 dark:bg-blue-600 rounded-full items-center justify-center"
+      >
+        <svg
+          class="w-4 h-4 text-white"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
+          ></path>
+        </svg>
+      </div>
+    </div>
+    <p
+      class="text-xs text-center font-medium truncate w-20 transition-colors category-text"
+      [class]="
+        isSelected
+          ? 'text-blue-600 dark:text-blue-400 font-bold'
+          : 'text-gray-700 dark:text-gray-300 group-hover:text-blue-600 dark:group-hover:text-blue-400'
+      "
+    >
+      {{ category.name }}
+    </p>
+  </a>
+</div>

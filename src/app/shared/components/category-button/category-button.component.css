@@ -1,0 +1,14 @@
+/* Mejoras de hover para estados no seleccionados */
+.category-button:not(.category-selected):hover .category-circle {
+  transform: scale(1.05);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Transiciones suaves para todos los elementos */
+.category-circle {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.category-text {
+  transition: all 0.2s ease-in-out;
+}

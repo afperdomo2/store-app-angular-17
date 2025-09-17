@@ -1,34 +1,46 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, signal } from '@angular/core';
-import { Category } from '@core/models/category.model';
+import { Component, inject, Input, OnInit, signal } from '@angular/core';
+import { Router } from '@angular/router';
 
+import { Category } from '@core/models/category.model';
 import { Product } from '@core/models/product.model';
 import { ProductComponent } from '@features/products/components/product/product.component';
+import { CategoryButtonComponent } from '@shared/components/category-button/category-button.component';
 import { CategoryService } from '@shared/services/api/escuelajs/category.service';
-import { ProductService } from '@shared/services/api/escuelajs/product.service';
+import {
+  ProductFilterOptions,
+  ProductService,
+} from '@shared/services/api/escuelajs/product.service';
 import { CartService } from '@shared/services/cart.service';
 
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [CommonModule, ProductComponent],
+  imports: [CommonModule, ProductComponent, CategoryButtonComponent],
   templateUrl: './list.component.html',
   styleUrl: './list.component.css',
 })
-export class ListComponent {
+export class ListComponent implements OnInit {
   private cartService = inject(CartService);
   private productService = inject(ProductService);
   private categoryService = inject(CategoryService);
+  private router = inject(Router);
 
+  @Input() category?: string;
+
+  // Signals para el estado
   productList = signal<Product[]>([]);
   categoryList = signal<Category[]>([]);
 
-  constructor() {}
-
-  // Se ejecuta al inicializar el componente, una sola vez
   ngOnInit() {
     this.loadProducts();
     this.loadCategories();
+  }
+
+  ngOnChanges() {
+    if (this.category) {
+      this.loadProducts({ categorySlug: this.category });
+    }
   }
 
   onAddToCart(product: Product) {
@@ -36,8 +48,17 @@ export class ListComponent {
     this.cartService.addToCart(product);
   }
 
-  private loadProducts() {
-    this.productService.getProducts().subscribe((products) => {
+  clearCategoryFilter() {
+    this.router.navigate(['/']);
+    this.loadProducts();
+  }
+
+  isCategorySelected(category: Category): boolean {
+    return this.category === category.slug;
+  }
+
+  private loadProducts(filter?: ProductFilterOptions) {
+    this.productService.getProducts(filter).subscribe((products) => {
       this.productList.set(products);
     });
   }

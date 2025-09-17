@@ -58,8 +58,4 @@ export class ProductDetailComponent implements OnInit {
       this.cartService.addToCart(this.product()!);
     }
   }
-
-  goBack() {
-    this.router.navigate(['/']);
-  }
 }

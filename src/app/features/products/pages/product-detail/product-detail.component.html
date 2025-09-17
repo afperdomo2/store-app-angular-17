@@ -1,7 +1,5 @@
-<div
-  class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8"
-  *ngIf="product() as product"
->
+@if (product(); as product) {
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
     <!-- Galería de imágenes -->
     <div class="space-y-4">
@@ -16,13 +14,13 @@
           class="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
         />
       </div>
-
       <!-- Miniaturas -->
-      <div class="grid grid-cols-4 gap-3" *ngIf="product.images.length > 1">
+      @if (product.images.length > 1) {
+      <div class="grid grid-cols-4 gap-3">
+        @for (image of product.images; track image; let i = $index) {
         <button
           class="aspect-square bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden border-2 transition-all duration-200 hover:shadow-md"
           type="button"
-          *ngFor="let image of product.images; let i = index"
           (click)="selectImage(i)"
           [class.border-blue-600]="selectedImageIndex() === i"
           [class.border-gray-200]="selectedImageIndex() !== i"
@@ -41,9 +39,10 @@
             alt="{{ product.title + ' imagen ' + (i + 1) }}"
           />
         </button>
+        }
       </div>
+      }
     </div>
-
     <!-- Información del producto -->
     <div class="space-y-6">
       <!-- Categoría y acciones superiores -->
@@ -54,14 +53,12 @@
           {{ product.category.name }}
         </span>
       </div>
-
       <!-- Título del producto -->
       <h1
         class="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white leading-tight"
       >
         {{ product.title }}
       </h1>
-
       <!-- Precio -->
       <div class="flex items-baseline space-x-3">
         <span
@@ -70,14 +67,12 @@
           {{ product.price | currency : "$" : "symbol" : "1.2-2" }}
         </span>
       </div>
-
       <!-- Descripción -->
       <div class="prose prose-gray dark:prose-invert max-w-none">
         <p class="text-gray-600 dark:text-gray-300 leading-relaxed text-lg">
           {{ product.description }}
         </p>
       </div>
-
       <!-- Controles de cantidad -->
       <div class="space-y-4">
         <div class="flex items-center space-x-4">
@@ -138,7 +133,6 @@
           </span>
         </div>
       </div>
-
       <!-- Botones de acción -->
       <div class="space-y-3">
         <!-- Botón agregar al carrito -->
@@ -148,12 +142,12 @@
           (click)="addToCart()"
           [disabled]="isAddingToCart()"
         >
+          @if (!isAddingToCart()) {
           <svg
             class="w-5 h-5"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
-            *ngIf="!isAddingToCart()"
           >
             <path
               stroke-linecap="round"
@@ -162,16 +156,16 @@
               d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m6-5v6a2 2 0 01-2 2H9a2 2 0 01-2-2v-6m8 0V9a2 2 0 00-2-2H9a2 2 0 00-2 2v4.01"
             ></path>
           </svg>
+          } @if (isAddingToCart()) {
           <div
             class="animate-spin w-5 h-5 border-2 border-white border-t-transparent rounded-full"
-            *ngIf="isAddingToCart()"
           ></div>
+          }
           <span>{{
             isAddingToCart() ? "Agregando..." : "Agregar al carrito"
           }}</span>
         </button>
       </div>
-
       <!-- Información adicional -->
       <div class="bg-gray-50 dark:bg-gray-800 rounded-xl p-6 space-y-4">
         <h3 class="font-semibold text-gray-900 dark:text-white">
@@ -207,3 +201,4 @@
     </div>
   </div>
 </div>
+}
